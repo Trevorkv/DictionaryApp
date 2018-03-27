@@ -69,4 +69,35 @@ public class Dictionary {
     }
     
     
+    /**
+     * Method: addWord
+     * Description: Adds the argument to the ArrayList of type Word
+     * @param word
+     * @return boolean
+     */
+    public boolean addWord(Word word)
+    {
+        boolean ret = false;
+        if(words.isEmpty())
+            ret = words.add(word);
+        else
+            for(int i = 0; i < words.size(); i++)
+            {
+                if(words.get(i).getWord().compareTo(word.getWord()) > 0)
+                {
+                        words.add(i, word);
+                        ret = true;
+                        break;
+                }
+                else if(i == words.size() - 1)
+                {
+                        ret = words.add(word);
+                        break;
+                }
+            }	
+        
+        return ret;
+    }
+    
+    
 }//EOC
