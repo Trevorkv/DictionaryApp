@@ -103,7 +103,7 @@ public class Word {
      */
     @Override
     public String toString() {
-        return "Word{" + "word=" + word + ", def=" + def + ", partOfSpeech=" + partOfSpeech + '}';
+        return word + "\n" + def + "\n" + partOfSpeech + "\n";
     }
   
 }//EOC

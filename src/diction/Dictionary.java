@@ -70,8 +70,46 @@ public class Dictionary {
     
     
     /**
+     * Method: getworldIndex
+     * Description: Returns the index of the element from the ArrayList of Words
+     *              that matches the given argument
+     * @param word
+     * @return 
+     */
+    public int getWordIndex(String word)
+    {
+        int index = -1;
+        int min = 0;
+        int max = words.size();
+        int mid = max/2;
+        
+        while(true && min != mid)
+        {
+            if(words.get(mid).getWord().compareToIgnoreCase(word) == 0)
+            {
+                index = min;
+                break;
+            }
+            else if(words.get(mid).getWord().compareToIgnoreCase(word) < 0)
+            {
+                min = mid;
+                mid = (max + min)/2;
+            }
+            else if(words.get(mid).getWord().compareToIgnoreCase(word) > 0)
+            {
+                max = mid;
+                mid = (max + min)/2;
+            }
+        }
+        
+        return index;
+    }
+    
+    
+    /**
      * Method: addWord
-     * Description: Adds the argument to the ArrayList of type Word
+     * Description: Adds the argument to the ArrayList of type Word 
+     *              lexicographically
      * @param word
      * @return boolean
      */
@@ -99,5 +137,60 @@ public class Dictionary {
         return ret;
     }
     
+    
+    /**
+     * Method: deleteWord
+     * Description: Deletes the word that matches the given argument. Returns 
+     *              true if deleted successfully
+     * @param word
+     * @return boolean
+     */
+    public boolean deleteWord(String word)
+    {
+        boolean ret = false;
+        Word key = getWord(word);
+        
+        if(key != null)
+        {
+            ret = words.remove(key);
+        }
+        
+        return ret;
+    }
+    
+    
+    /**
+     * Method: editWord
+     * @param word
+     * @param newWord
+     * @param def
+     * @param partOfSpeech 
+     */
+    public void editWord(String word, String newWord, String def, String partOfSpeech)
+    {
+        int index = getWordIndex(word);
+        words.get(index).setWord(newWord == null ? word : newWord);
+        words.get(index).setDef(def);
+        words.get(index).setPartOfSpeech(partOfSpeech);
+    }
+    
+    
+    /**
+     * Method: toString
+     * Description: Returns the string representation of the instance data
+     * @return String
+     */
+    @Override
+    public String toString()
+    {
+        String ret = new String();
+        
+        for(int i = 0; i < words.size(); i++)
+        {
+            ret += words.get(i).toString() + "\n";
+        }
+        
+        return ret;
+    }
     
 }//EOC
