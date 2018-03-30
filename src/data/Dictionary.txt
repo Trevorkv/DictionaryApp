@@ -1,0 +1,4 @@
+Hat,A piece of clothing worn on a head,Noun
+Fly,An insect with wings,Noun
+Cup,A Kitchenware that is used to hold liquids for drinking,Noun
+Fly,To move to another location via air travel,Verb

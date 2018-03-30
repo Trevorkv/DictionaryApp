@@ -1,6 +1,7 @@
 
 package diction;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -121,11 +122,11 @@ public class Dictionary {
         else
             for(int i = 0; i < words.size(); i++)
             {
-                if(words.get(i).getWord().compareTo(word.getWord()) > 0)
+                if(words.get(i).getWord().compareToIgnoreCase(word.getWord()) > 0)
                 {
-                        words.add(i, word);
-                        ret = true;
-                        break;
+                    words.add(i, word);
+                    ret = true;
+                    break;
                 }
                 else if(i == words.size() - 1)
                 {
@@ -133,7 +134,7 @@ public class Dictionary {
                         break;
                 }
             }	
-        
+
         return ret;
     }
     
@@ -172,6 +173,44 @@ public class Dictionary {
         words.get(index).setWord(newWord == null ? word : newWord);
         words.get(index).setDef(def);
         words.get(index).setPartOfSpeech(partOfSpeech);
+    }
+    
+    
+    /**
+     * Method: loadWordsFromFile
+     * Description: Populates the ArrayList of words and their data from the 
+     *              given file. The String tokenList is a sting containing the
+     *              characters used to separate each data (see StringTokenizer)
+     * @param filePath
+     * @param tokenList 
+     */
+    public void loadWordsFromFile(String filePath, String tokenList)
+    {
+        try
+        {
+            BufferedReader bf = new BufferedReader(new FileReader(filePath));
+            String line = bf.readLine();
+            StringTokenizer tokenizer = new StringTokenizer(line, tokenList);
+            Word word;
+            
+            while(line != null)
+            {
+                word = new Word(tokenizer.nextToken(),tokenizer.nextToken(),
+                    tokenizer.nextToken());
+
+                this.addWord(word);
+                line = bf.readLine();
+                tokenizer = new StringTokenizer(line == null ? "" : line, tokenList);
+            }
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println(e + " Cannot Find File");
+        }
+        catch(IOException e)
+        {
+            System.out.println(e + " Failure Reading File");
+        }
     }
     
     
