@@ -122,12 +122,22 @@ public class Dictionary {
         else
             for(int i = 0; i < words.size(); i++)
             {
-                if(words.get(i).getWord().compareToIgnoreCase(word.getWord()) > 0)
+                //Repeating words and meaning
+                if(words.get(i).getWord().compareToIgnoreCase(word.getWord()) ==
+                        0 && words.get(i).getDef().
+                                compareToIgnoreCase(word.getDef()) == 0)
+                {
+                    break;
+                }
+                //if given is less than the current word spot
+                else if(words.get(i).getWord().compareToIgnoreCase(word.getWord()) > 0)
                 {
                     words.add(i, word);
                     ret = true;
                     break;
                 }
+                //End of list achieved meaning the word to be added must be 
+                //lexicographically the largest
                 else if(i == words.size() - 1)
                 {
                         ret = words.add(word);
